@@ -1,5 +1,8 @@
 import RPi.GPIO as GPIO
 import time
+import os
+
+os.system("raspivid -o - -t 0 -n -vf -hf -w 1280 -h 720 -fps 25 -g 100 | cvlc -vvv stream:///dev/stdin --sout '#rtp{sdp=rtsp://:8554/,mux=ts}' :demux=h264")
 
 servoPIN_1 = 27
 EnablePIN_1 = 5
@@ -35,23 +38,24 @@ try:
     time.sleep(0.5)
     p.ChangeDutyCycle(2.5)
     time.sleep(0.5)
-    p.ChangeDutyCycle(5)
+    q.ChangeDutyCycle(5)
     time.sleep(0.5)
-    p.ChangeDutyCycle(7.5)
+    q.ChangeDutyCycle(7.5)
     time.sleep(0.5)
-    p.ChangeDutyCycle(10)
+    q.ChangeDutyCycle(10)
     time.sleep(0.5)
-    p.ChangeDutyCycle(12.5)
+    q.ChangeDutyCycle(12.5)
     time.sleep(0.5)
-    p.ChangeDutyCycle(10)
+    q.ChangeDutyCycle(10)
     time.sleep(0.5)
-    p.ChangeDutyCycle(7.5)
+    q.ChangeDutyCycle(7.5)
     time.sleep(0.5)
-    p.ChangeDutyCycle(5)
+    q.ChangeDutyCycle(5)
     time.sleep(0.5)
-    p.ChangeDutyCycle(2.5)
+    q.ChangeDutyCycle(2.5)
     time.sleep(0.5)
 
 except KeyboardInterrupt:
   p.stop()
+  q.stop()
   GPIO.cleanup()
