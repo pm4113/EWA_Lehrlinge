@@ -10,7 +10,8 @@ from pdb import set_trace as bp
 def set_servo(direction):
 #	bp()
 	global azimut, elevation
-	global pre_azimut, pre_elevation
+	global pre_azimut, pre_elevation, pre_pre_azimut, pre_pre_elevation
+
 	if direction == 'r':
 		azimut = azimut_up(azimut)
 	elif direction == 't':
@@ -25,26 +26,23 @@ def set_servo(direction):
 		GPIO.cleanup()
 		return 'stop'
 	
-#	if elevation != pre_elevation:
-#		q.ChangeFrequency(70)
-#		enable_servo_elevation(elevation)
-#	else:
-#		q.ChangeFrequency(0.001)
-#		disable_servo_elevation()
-    		
-#	if azimut != pre_azimut:
-#		p.ChangeFrequency(70)
-#		enable_servo_azimut(azimut)
-#	else:
-#		p.ChangeFrequency(0.001)
-#		disable_servo_azimut()
+#	if elevation != pre_pre_elevation:
+#		q.ChangeDutyCycle(elevation)
+#	elif elevation == pre_pre_elevation:
+#		q.ChangeDutyCycle(99)
+#	if azimut != pre_pre_azimut:
+#		p.ChangeDutyCycle(azimut)
+#	elif azimut == pre_pre_azimut:
+#		p.ChangeDutyCycle(99)
+
 
 	pre_elevation = elevation
+	pre_pre_elevation = pre_elevation
 	pre_azimut = azimut
+	pre_pre_azimut = pre_azimut
    	p.ChangeDutyCycle(azimut)
  	q.ChangeDutyCycle(elevation)
 	return 'ready'
-
 
 def get_character():
 	global start
@@ -58,6 +56,8 @@ def get_character():
 	return state
 
 try:
+#	tmr = TimerClass()
+#	tmr.start()
 	while True:
 		state = get_character()
 		if state == 'stop':
@@ -67,3 +67,17 @@ except KeyboardInterrupt:
   p.stop()
   q.stop()
   GPIO.cleanup()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
