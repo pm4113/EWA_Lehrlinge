@@ -43,10 +43,10 @@ def disable_servo_azimut():
 	p.ChangeDutyCycle(0.1)
 
 def enable_servo_elevation(elevation):
-	p.ChangeDutyCycle(90)
+	q.ChangeDutyCycle(90)
 
 def disable_servo_elevation():
-	p.ChangeDutyCycle(0.1)
+	q.ChangeDutyCycle(0.1)
 
 
 
